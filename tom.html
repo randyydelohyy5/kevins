@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PayPal Receipt</title>
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0f0f0f;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .paypal-logo {
+    width: 70px;
+    margin-bottom: 15px;
+  }
+
+  .receipt-box {
+    background: #1a1a1a;
+    border-radius: 10px;
+    padding: 30px 20px;
+    width: 320px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    text-align: center;
+    animation: fadeInUp 0.8s ease forwards;
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .receipt-box h2 {
+    color: #0abf53;
+    margin-top: 15px;
+    font-size: 22px;
+  }
+
+  .amount {
+    font-size: 32px;
+    font-weight: bold;
+    margin: 10px 0;
+  }
+
+  .receipt-detail {
+    text-align: left;
+    margin-top: 15px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .warning {
+    color: #ffb100;
+    font-size: 13px;
+    border-top: 1px solid #333;
+    margin-top: 20px;
+    padding-top: 10px;
+  }
+</style>
+</head>
+<body>
+
+<div class="receipt-box">
+  <img src="https://www.paypalobjects.com/webstatic/icon/pp258.png" class="paypal-logo" alt="PayPal">
+  <div>Sending to <strong>DAVID WILSON</strong></div>
+  <div class="amount">$799.99</div>
+  <h2>Payment Sent</h2>
+  <div class="receipt-detail">
+    <p>Your payment to <strong>DAVID WILSON</strong> has been processed successfully using PayPal.</p>
+    <p><strong>Transaction ID:</strong> CHG-78435519</p>
+    <p><strong>Invoice ID:</strong> INV-22947811</p>
+    <p><strong>Status:</strong> Completed</p>
+  </div>
+  <div class="warning">
+    ⚠ Note: This was an automated payment triggered by clicking a Money Request Link.
+  </div>
+</div>
+
+</body>
+</html>
