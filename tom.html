@@ -1,114 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PayPal Receipt</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+<title>PayPal Receipt — Demo Flow</title>
 <style>
-  html, body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background: #0f0f0f;
-    color: #fff;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: none; /* Hide mouse pointer */
+  body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#0f0f0f;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    height:100vh;
   }
+  .page{
+    position:absolute;
+    inset:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    opacity:0;
+    visibility:hidden;
+    transition:opacity .6s ease,visibility .6s ease;
+  }
+  .active{opacity:1;visibility:visible;}
 
-  .paypal-logo {
-    width: 70px;
-    margin-bottom: 15px;
+  .paypal-logo{width:70px;margin-bottom:10px;}
+  .amount{font-size:28px;font-weight:700;margin:8px 0;}
+  .loader{
+    border:4px solid rgba(255,255,255,0.1);
+    border-top:4px solid #0070ba;
+    border-radius:50%;
+    width:45px;height:45px;
+    animation:spin 1s linear infinite;
+    margin:16px 0;
   }
+  @keyframes spin{to{transform:rotate(360deg);}}
 
-  .receipt-box {
-    background: #1a1a1a;
-    border-radius: 10px;
-    padding: 30px 20px;
-    width: 320px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.5);
-    text-align: center;
-    animation: fadeInUp 0.8s ease forwards;
+  .receipt-box{
+    background:#1a1a1a;
+    border-radius:10px;
+    padding:28px 20px;
+    width:320px;
+    text-align:center;
+    box-shadow:0 0 15px rgba(0,0,0,0.5);
+    animation:fadeInUp .8s ease forwards;
   }
-
-  @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(40px); }
-    to { opacity: 1; transform: translateY(0); }
+  @keyframes fadeInUp{
+    from{opacity:0;transform:translateY(40px);}
+    to{opacity:1;transform:translateY(0);}
   }
-
-  .receipt-box h2 {
-    color: #0abf53;
-    margin-top: 15px;
-    font-size: 22px;
-  }
-
-  .amount {
-    font-size: 32px;
-    font-weight: bold;
-    margin: 10px 0;
-  }
-
-  .receipt-detail {
-    text-align: left;
-    margin-top: 15px;
-    font-size: 14px;
-    line-height: 1.6;
-  }
-
-  .warning {
-    color: #ffb100;
-    font-size: 13px;
-    border-top: 1px solid #333;
-    margin-top: 20px;
-    padding-top: 10px;
-  }
+  .receipt-box h2{color:#0abf53;margin:12px 0 0;font-size:22px;}
+  .receipt-detail{text-align:left;font-size:14px;line-height:1.6;margin-top:14px;}
+  .warning{color:#ffb100;font-size:13px;border-top:1px solid #333;margin-top:16px;padding-top:8px;}
 </style>
 </head>
 <body>
 
-<div class="receipt-box">
+<!-- Processing Page -->
+<div id="processing" class="page active">
   <img src="https://www.paypalobjects.com/webstatic/icon/pp258.png" class="paypal-logo" alt="PayPal">
   <div>Sending to <strong>DAVID WILSON</strong></div>
   <div class="amount">$799.99</div>
-  <h2>Payment Sent</h2>
-  <div class="receipt-detail">
-    <p>Your payment to <strong>DAVID WILSON</strong> has been processed successfully using PayPal.</p>
-    <p><strong>Transaction ID:</strong> CHG-78435519</p>
-    <p><strong>Invoice ID:</strong> INV-22947811</p>
-    <p><strong>Status:</strong> Completed</p>
-  </div>
-  <div class="warning">
-    ⚠ Note: This was an automated payment triggered by clicking a Money Request Link.
+  <div class="loader"></div>
+  <div>Processing payment…</div>
+</div>
+
+<!-- Receipt Page -->
+<div id="receipt" class="page">
+  <div class="receipt-box">
+    <img src="https://www.paypalobjects.com/webstatic/icon/pp258.png" class="paypal-logo" alt="PayPal">
+    <div>Sending to <strong>DAVID WILSON</strong></div>
+    <div class="amount">$799.99</div>
+    <h2>Payment Sent</h2>
+    <div class="receipt-detail">
+      <p>Your payment to <strong>DAVID WILSON</strong> has been processed successfully using PayPal.</p>
+      <p><strong>Transaction ID:</strong> CHG-78435519</p>
+      <p><strong>Invoice ID:</strong> INV-22947811</p>
+      <p><strong>Status:</strong> Completed</p>
+    </div>
+    <div class="warning">
+      ⚠ This is a demo animation — no real payment occurred.
+    </div>
   </div>
 </div>
 
 <script>
-// Request fullscreen automatically when page loads
-document.addEventListener("DOMContentLoaded", () => {
-  const el = document.documentElement;
-  if (el.requestFullscreen) {
-    el.requestFullscreen();
-  } else if (el.webkitRequestFullscreen) {
-    el.webkitRequestFullscreen();
-  } else if (el.msRequestFullscreen) {
-    el.msRequestFullscreen();
-  }
+document.addEventListener('DOMContentLoaded', ()=>{
+  const proc=document.getElementById('processing');
+  const rec=document.getElementById('receipt');
+  // simulate processing
+  setTimeout(()=>{
+    proc.classList.remove('active');
+    rec.classList.add('active');
+  },3000);
 });
-
-// Disable mouse interactions
-window.addEventListener('mousemove', e => e.preventDefault());
-window.addEventListener('mousedown', e => e.preventDefault());
-window.addEventListener('mouseup', e => e.preventDefault());
-window.addEventListener('contextmenu', e => e.preventDefault());
-window.addEventListener('click', e => e.preventDefault());
-
-// Optional: disable keyboard input (Escape, etc.)
-window.addEventListener('keydown', e => e.preventDefault());
 </script>
-
 </body>
 </html>
